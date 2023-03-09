@@ -1,1 +1,1 @@
-# SoftSec
+# Software Security Labs
