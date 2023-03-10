@@ -50,8 +50,17 @@ int main(int argc, char *argv[]) {
    * A radius of 0 means a single pixel in the center
    */
   for (int x = center_x - radius; x <= center_x + radius; x++) {
+  
+    if(x < 0 || x >= width){
+      continue;
+    }
+
     int y = round(center_y +
                   sqrt(radius * radius - (x - center_x) * (x - center_x)));
+
+    if (y < 0 || y >= height){
+      continue;
+    }
 
     image_data[y][x].red = (hex_color & 0xff0000) >> 16;
     image_data[y][x].green = (hex_color & 0x00ff00) >> 8;
@@ -60,6 +69,10 @@ int main(int argc, char *argv[]) {
 
     y = round(center_y -
                sqrt(radius * radius - (x - center_x) * (x - center_x)));
+
+    if (y < 0 || y >= height){
+      continue;
+    }
 
     image_data[y][x].red = (hex_color & 0xff0000) >> 16;
     image_data[y][x].green = (hex_color & 0x00ff00) >> 8;
@@ -73,8 +86,17 @@ int main(int argc, char *argv[]) {
    * In practice a more efficient rasterization algorithm is used.
    */
   for (int y = center_y - radius; y <= center_y + radius; y++) {
+
+    if(y < 0 || y >= height){
+      continue;
+    }
+
     int x = round(center_x +
                   sqrt(radius * radius - (y - center_y) * (y - center_y)));
+
+    if (x < 0 || x >= width){
+      continue;
+    }
 
     image_data[y][x].red = (hex_color & 0xff0000) >> 16;
     image_data[y][x].green = (hex_color & 0x00ff00) >> 8;
@@ -83,6 +105,10 @@ int main(int argc, char *argv[]) {
 
     x = round(center_x -
                sqrt(radius * radius - (y - center_y) * (y - center_y)));
+
+    if (x < 0 || x >= width){
+      continue;
+    }
 
     image_data[y][x].red = (hex_color & 0xff0000) >> 16;
     image_data[y][x].green = (hex_color & 0x00ff00) >> 8;
