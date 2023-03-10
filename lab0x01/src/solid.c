@@ -2,6 +2,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #define OUTPUT_NAME_SIZE 500
 
@@ -112,21 +113,12 @@ int main(int argc, char *argv[]) {
   free(palette);
 
   /* We want to inform user how big the new image is.
-   * "stat -c %s filename" prints the size of the file
-   *
-   * To prevent buffer overflows we use strncat.
+   * Instead of using a system call, we use the sys libary of linux.
+   * Doing so prevents code injection.
    */
-  char command[512] = {0};
-
-  printf("Size: ");
-
-  /* printf will write to the screen when it encounters a new line
-   * By calling fflush we force the program to output "Size " right away
-   */
-  fflush(stdout);
-  strcat(command, "stat -c %s ");
-  strncat(command, output_name, OUTPUT_NAME_SIZE);
-  system(command);
+  struct stat st;
+  stat(output_name, &st);
+  printf("Size: %d\n", st.st_size);
 
   return 0;
 
