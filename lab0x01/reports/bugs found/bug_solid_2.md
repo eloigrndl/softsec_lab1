@@ -10,8 +10,7 @@ The return value of the `allocate_palette` is never check.
 In `solid.c:16`
 
 ## Expected vs Observed
-The program should always check if memory allocation have succeeded and inform the user if it is not the case. This is not done with the 
-
+The program should always check if memory allocation have succeeded and inform the user in case of a failure. This is not the case with the `palette` memory allocation. 
 
 ## Steps to Reproduce
 
