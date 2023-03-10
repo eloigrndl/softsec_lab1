@@ -21,4 +21,4 @@ The program should not leak memory but `palette`is never freed. Result were obta
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-Either free the palette value at the end of the program or allocate the variable locally. This last solution is a better solution as we avoid using the `allocate_palette`method and do not need to free the variable.
+Free the variable at the same time than the `img` and `img->pxl` variables. This also requires to change error handlers to free the palettte if the image or pixels allocation have failed.
