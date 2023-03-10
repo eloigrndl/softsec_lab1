@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
    */
   struct stat st;
   if(stat(output_name, &st) == -1){
-    return 1;
+    goto error_size;
   }
   printf("Size: %d\n", (int)st.st_size);
 
@@ -140,5 +140,8 @@ error_img:
 error_mem:
   free(palette);
   printf("Couldn't allocate memory\n");
+  return 1;
+error_size:
+  printf("Couldn't compute file's stat\n");
   return 1;
 }
