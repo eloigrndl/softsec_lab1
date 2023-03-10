@@ -1,0 +1,22 @@
+docker run --name softsec -v /Users/eloigrndl/Desktop/SoftSec:/SoftSec -ti ubuntu /bin/bash
+
+docker ps
+
+docker commit -p 2c3cd7b28b9a softsec
+
+docker start -i softsec
+
+docker stop softsec
+
+pwd -> display path
+
+valgrind --leak-check=yes --log-file=valgrind.rpt a.out
+
+
+- `checkerboard.c`
+- `circle.c`
+- `filter.c`
+- `rect.c`
+- `epfl.c`
+- `resize.c`
+- `solid.c`
