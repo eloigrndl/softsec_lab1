@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
    * Doing so prevents code injection.
    */
   struct stat st;
-  if(!stat(output_name, &st)){
+  if(stat(output_name, &st) == -1){
     return 1;
   }
   printf("Size: %d\n", (int)st.st_size);
