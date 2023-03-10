@@ -1,9 +1,10 @@
 # BUG-0
 ## Category
-Unchecked return code from system call
+Memory leak
+
 ## Description
 
-In normal behavior, there is a memory leak as the `palette`varaible is never freed. 
+In normal behavior, there is a memory leak as the `palette` variable is never freed. 
 
 ## Affected Lines in the original program
 In `solid.c:16`
