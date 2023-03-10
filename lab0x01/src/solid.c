@@ -117,8 +117,10 @@ int main(int argc, char *argv[]) {
    * Doing so prevents code injection.
    */
   struct stat st;
-  stat(output_name, &st);
-  printf("Size: %d\n", st.st_size);
+  if(!stat(output_name, &st)){
+    return 1;
+  }
+  printf("Size: %d\n", (int)st.st_size);
 
   return 0;
 
