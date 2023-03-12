@@ -1,6 +1,6 @@
 # BUG-CHECKERBOARD-1
 ## Category
-Heap overflow
+Heap overflow/underflow
 
 ## Description
 For square sizes which are either greater than the image size or which does not divide the image size perfectly (the image size not being a multiple of the square size), the program fails.
