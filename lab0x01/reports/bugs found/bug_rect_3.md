@@ -15,7 +15,7 @@ The resulting image should have been stored correctly but this is not the case a
 
 ### Command
 ```
-./rect test.png /inexistant/folder/test_circle.png 100 100 200 50 FFFFFFF
+./rect test.png /inexistant/folder/test_rect.png 100 100 200 50 FFFFFFF
 ```
 
 ### Proof-of-Concept Input (if needed)
