@@ -74,12 +74,16 @@ void filter_blur(struct image *img, void *r) {
            *
            * FIX: Limit reads only to valid memory
            */
-          struct pixel current = image_data[i + y_offset][j + x_offset];
+          if (j + x_offset >= 0 && j + x_offset < img->size_x &&
+              i + y_offset >= 0 && i + y_offset < img->size_y) {
 
-          red += current.red;
-          blue += current.blue;
-          green += current.green;
-          alpha += current.alpha;
+            struct pixel current = image_data[i + y_offset][j + x_offset];
+
+            red += current.red;
+            blue += current.blue;
+            green += current.green;
+            alpha += current.alpha;
+          }
         }
       }
 
