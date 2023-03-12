@@ -20,17 +20,33 @@ int main(int argc, char *argv[]) {
   char *input = argv[1];
   char *output = argv[2];
 
-  unsigned top_left_x = atoi(argv[3]);
-  unsigned top_left_y = atoi(argv[4]);
+  char *end_ptr;
+  
+  /* Parse the coordinates arguments */
+  unsigned long top_left_x = strtoul(argv[3], &end_ptr, 10);
+  if (top_left_x >= UINT32_MAX || *end_ptr) {
+    top_left_x = 0;
+  }
 
-  unsigned bottom_right_x = atoi(argv[5]);
-  unsigned bottom_right_y = atoi(argv[6]);
+  unsigned long top_left_y = strtoul(argv[4], &end_ptr, 10);
+  if (top_left_y >= UINT32_MAX || *end_ptr) {
+    top_left_y = 0;
+  }
+
+  unsigned long bottom_right_x = strtoul(argv[5], &end_ptr, 10);
+  if (*end_ptr || bottom_right_x >= UINT32_MAX || *end_ptr) {
+    bottom_right_x = 0;
+  }
+
+  unsigned long bottom_right_y = strtoul(argv[6], &end_ptr, 10);
+  if (bottom_right_y >= UINT32_MAX || *end_ptr) {
+    bottom_right_y = 0;
+  }
 
   /* Invalid color code will set the color to black.
    * If it worked for Henry Ford, it will work for us.
    */
 
-  char *end_ptr;
   long hex_color = strtol(argv[7], &end_ptr, 16);
   if (*end_ptr || strlen(argv[7]) != 6 || hex_color < 0) {
     hex_color = 0;
