@@ -15,7 +15,7 @@ struct pixel *allocate_palette() {
 int main(int argc, char *argv[]) {
   struct image *img = NULL;
   struct pixel *palette = allocate_palette();
-  if(!palette){
+  if (!palette) {
     goto error_mem;
   }
 
@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
    * Doing so prevents code injection.
    */
   struct stat st;
-  if(stat(output_name, &st) == -1){
+  if (stat(output_name, &st) == -1) {
     goto error_size;
   }
   printf("Size: %d\n", (int)st.st_size);

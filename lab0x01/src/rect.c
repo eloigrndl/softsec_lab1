@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
   char *output = argv[2];
 
   char *end_ptr;
-  
+
   /* Parse the coordinates arguments */
   unsigned long top_left_x = strtoul(argv[3], &end_ptr, 10);
   if (top_left_x >= UINT32_MAX || *end_ptr) {
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
     j = 0;
   }
 
-  if(store_png(output, img, NULL, 0)){
+  if (store_png(output, img, NULL, 0)) {
     goto error_png;
   }
   free(img->px);

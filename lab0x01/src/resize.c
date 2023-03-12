@@ -102,7 +102,7 @@ error:
   free(img);
   printf("Memory error!");
   return 1;
-  
+
 error_arithmetic:
   free(img->px);
   free(img);

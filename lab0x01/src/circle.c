@@ -50,15 +50,15 @@ int main(int argc, char *argv[]) {
    * A radius of 0 means a single pixel in the center
    */
   for (int x = center_x - radius; x <= center_x + radius; x++) {
-  
-    if(x < 0 || x >= width){
+
+    if (x < 0 || x >= width) {
       continue;
     }
 
     int y = round(center_y +
                   sqrt(radius * radius - (x - center_x) * (x - center_x)));
 
-    if (y < 0 || y >= height){
+    if (y < 0 || y >= height) {
       continue;
     }
 
@@ -68,9 +68,9 @@ int main(int argc, char *argv[]) {
     image_data[y][x].alpha = 0xff;
 
     y = round(center_y -
-               sqrt(radius * radius - (x - center_x) * (x - center_x)));
+              sqrt(radius * radius - (x - center_x) * (x - center_x)));
 
-    if (y < 0 || y >= height){
+    if (y < 0 || y >= height) {
       continue;
     }
 
@@ -87,14 +87,14 @@ int main(int argc, char *argv[]) {
    */
   for (int y = center_y - radius; y <= center_y + radius; y++) {
 
-    if(y < 0 || y >= height){
+    if (y < 0 || y >= height) {
       continue;
     }
 
     int x = round(center_x +
                   sqrt(radius * radius - (y - center_y) * (y - center_y)));
 
-    if (x < 0 || x >= width){
+    if (x < 0 || x >= width) {
       continue;
     }
 
@@ -104,9 +104,9 @@ int main(int argc, char *argv[]) {
     image_data[y][x].alpha = 0xff;
 
     x = round(center_x -
-               sqrt(radius * radius - (y - center_y) * (y - center_y)));
+              sqrt(radius * radius - (y - center_y) * (y - center_y)));
 
-    if (x < 0 || x >= width){
+    if (x < 0 || x >= width) {
       continue;
     }
 
@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
     image_data[y][x].alpha = 0xff;
   }
 
-  if(store_png(output, img, NULL, 0)){
+  if (store_png(output, img, NULL, 0)) {
     goto error_png;
   }
   free(img->px);

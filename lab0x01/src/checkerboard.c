@@ -110,18 +110,18 @@ int main(int argc, char *argv[]) {
 
         /* This iterates over a square and fills it with the correct color */
         for (int x = 0; x < square_width; x++) {
-            int x_index = square_top_left_x + x > height - 1 ? height - 1 : square_top_left_x + x;
+          int x_index = square_top_left_x + x > height - 1
+                            ? height - 1
+                            : square_top_left_x + x;
           for (int y = 0; y < square_width; y++) {
-            int y_index = square_top_left_y + y > width - 1 ? width - 1 : square_top_left_y + y;
+            int y_index = square_top_left_y + y > width - 1
+                              ? width - 1
+                              : square_top_left_y + y;
 
-            image_data[y_index][x_index].red =
-                palette[color].red;
-            image_data[y_index][x_index].green =
-                palette[color].green;
-            image_data[y_index][x_index].blue =
-                palette[color].blue;
-            image_data[y_index][x_index].alpha =
-                0xff;
+            image_data[y_index][x_index].red = palette[color].red;
+            image_data[y_index][x_index].green = palette[color].green;
+            image_data[y_index][x_index].blue = palette[color].blue;
+            image_data[y_index][x_index].alpha = 0xff;
           }
         }
       }
