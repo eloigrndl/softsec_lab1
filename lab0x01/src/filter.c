@@ -61,8 +61,8 @@ void filter_blur(struct image *img, void *r) {
   }
 
   /* We iterate over all pixels */
-  for (long i = 0; i <= img->size_y; i++) {
-    for (long j = 0; j <= img->size_x; j++) {
+  for (long i = 0; i < img->size_y; i++) {
+    for (long j = 0; j < img->size_x; j++) {
 
       unsigned long long red = 0, green = 0, blue = 0, alpha = 0;
       /* We iterate over all pixels in the square */
