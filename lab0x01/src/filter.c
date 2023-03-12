@@ -235,7 +235,7 @@ int __attribute__((weak)) main(int argc, char *argv[]) {
 
   /* Error when loading a png image */
   if (load_png(input, &img)) {
-    printf(input);
+    printf("%s",input);
     printf(" PNG file cannot be loaded\n");
     exit(1);
   }
