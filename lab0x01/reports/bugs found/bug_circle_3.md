@@ -9,7 +9,7 @@ The `store_png` function is called but the return value is not checked.
 `circle.c:93`
 
 ## Expected vs Observed
-The resulting image should have been stored correctly but this is not the case as the `store_png` function failed.
+The resulting image should have been stored correctly but this is not the case as the `store_png` function failed. The program should have returned a return code indeicating an error but this is also not the case.
 
 ## Steps to Reproduce
 
@@ -21,4 +21,4 @@ The resulting image should have been stored correctly but this is not the case a
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-The return value should be checked and if the function has failed, we should print an error message.
+The return value should be checked and if the function has failed, we should print an error message and return an error code.
