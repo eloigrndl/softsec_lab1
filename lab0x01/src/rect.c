@@ -77,9 +77,10 @@ int main(int argc, char *argv[]) {
         image_data[i][j].blue = (hex_color & 0x0000ff);
         image_data[i][j].alpha = 0xff;
       }
-      i++;
       j++;
     }
+    i++;
+    j = 0;
   }
 
   store_png(output, img, NULL, 0);
