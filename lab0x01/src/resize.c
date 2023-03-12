@@ -30,8 +30,14 @@ int main(int argc, char *argv[]) {
   unsigned short height = img->size_y;
   unsigned short width = img->size_x;
 
-  unsigned short new_height = (unsigned)(height * factor);
-  unsigned short new_width = (unsigned)(width * factor);
+  unsigned inter_height = (unsigned)(height * factor);
+  unsigned inter_width = (unsigned)(width * factor);
+  if (inter_height >= USHRT_MAX || inter_width >= USHRT_MAX) {
+    goto error_arithmetic;
+  }
+
+  unsigned short new_height = inter_height;
+  unsigned short new_width = inter_width;
 
   size_t n_pixels = new_height * new_width;
 
@@ -95,5 +101,11 @@ error_memory:
 error:
   free(img);
   printf("Memory error!");
+  return 1;
+  
+error_arithmetic:
+  free(img->px);
+  free(img);
+  printf("The new height/width are too big!\n");
   return 1;
 }
