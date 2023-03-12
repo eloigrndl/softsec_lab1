@@ -83,8 +83,16 @@ int main(int argc, char *argv[]) {
     j = 0;
   }
 
-  store_png(output, img, NULL, 0);
+  if(store_png(output, img, NULL, 0)){
+    goto error_png;
+  }
   free(img->px);
   free(img);
   return 0;
+
+error_png:
+  free(img->px);
+  free(img);
+  printf("Couldn't save png file\n");
+  return 1;
 }
