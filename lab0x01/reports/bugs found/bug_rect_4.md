@@ -1,4 +1,4 @@
-# BUG-14
+# BUG-RECT-4
 ## Category
 Type error
 
