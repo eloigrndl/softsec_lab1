@@ -24,15 +24,14 @@ int main(int argc, char *argv[]) {
 
   /* Decode the top left of the EPFL logo. Invalid values are decoded as 0 */
   int top_left_x = atoi(argv[3]);
-  if (top_left_x < 0){
-    top_left_x=0;
-  }
-  
-  int top_left_y = atoi(argv[4]);
-  if(top_left_y < 0) {
-    top_left_y=0;
+  if (top_left_x < 0) {
+    top_left_x = 0;
   }
 
+  int top_left_y = atoi(argv[4]);
+  if (top_left_y < 0) {
+    top_left_y = 0;
+  }
 
   /* Invalid size will just be interpreted as 1 */
   int size = atoi(argv[5]);
