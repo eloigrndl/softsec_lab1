@@ -230,7 +230,7 @@ int __attribute__((weak)) main(int argc, char *argv[]) {
 
   /* If the filter takes an argument, copy it */
   if (argv[4]) {
-    strcpy(arg, argv[4]);
+    strncpy(arg, argv[4], ARG_SIZE);
   }
 
   /* Error when loading a png image */
