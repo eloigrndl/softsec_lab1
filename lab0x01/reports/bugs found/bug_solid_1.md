@@ -22,4 +22,4 @@ The program should not leak memory but `palette`is never freed. Result were obta
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-Free the variable at the same time than the `img` and `img->pxl` variables. This also requires to change error handlers to free the palettte if the image or pixels allocation have failed.
+Instead of allocating the `palette` variable on the heap, we should allocate it on the stack since it is only used locally. This prevents the memory leak and avoids using external function (`allocate_palette()`) to create the variable.

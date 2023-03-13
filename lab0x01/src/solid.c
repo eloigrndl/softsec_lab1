@@ -14,10 +14,7 @@ struct pixel *allocate_palette() {
 
 int main(int argc, char *argv[]) {
   struct image *img = NULL;
-  struct pixel *palette = allocate_palette();
-  if (!palette) {
-    goto error_mem;
-  }
+  struct pixel palette[1];
 
   /*
    * goto statements should be used only in two cases:
@@ -110,7 +107,6 @@ int main(int argc, char *argv[]) {
 
   free(img->px);
   free(img);
-  free(palette);
 
   /* We want to inform user how big the new image is.
    * Instead of using a system call, we use the sys libary of linux.
@@ -129,7 +125,6 @@ int main(int argc, char *argv[]) {
    */
 
 error:
-  free(palette);
   printf("Usage: %s output_name height width hex_color\n", argv[0]);
   return 1;
 
@@ -138,7 +133,6 @@ error_px:
 error_img:
   free(img);
 error_mem:
-  free(palette);
   printf("Couldn't allocate memory\n");
   return 1;
 error_size:
