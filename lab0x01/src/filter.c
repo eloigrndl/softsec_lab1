@@ -65,6 +65,8 @@ void filter_blur(struct image *img, void *r) {
     for (long j = 0; j < img->size_x; j++) {
 
       unsigned long long red = 0, green = 0, blue = 0, alpha = 0;
+      int num_pixels = 0;
+
       /* We iterate over all pixels in the square */
       for (long y_offset = -radius; y_offset <= radius; y_offset++) {
         for (long x_offset = -radius; x_offset <= radius; x_offset++) {
@@ -83,11 +85,12 @@ void filter_blur(struct image *img, void *r) {
             blue += current.blue;
             green += current.green;
             alpha += current.alpha;
+            
+            num_pixels +=1;
           }
         }
       }
 
-      int num_pixels = (2 * radius + 1) * (2 * radius + 1);
       /* Calculate the average */
       red /= num_pixels;
       green /= num_pixels;
