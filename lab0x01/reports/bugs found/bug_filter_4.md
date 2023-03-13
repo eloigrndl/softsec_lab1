@@ -10,7 +10,7 @@ When the program fails to load the input image, it directly prints the input pat
 `filter.c:233`
 
 ## Expected vs Observed
-The command below will make the program fail without a SIGSEGV error.
+The command below will make the program fail and allow an attacker to read parts of the heap memory.
 
 ## Steps to Reproduce
 
