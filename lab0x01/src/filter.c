@@ -191,13 +191,65 @@ void filter_edge_detect(struct image *img, void *threshold_arg) {
   double weights_x[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
   double weights_y[3][3] = {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}};
 
+  int num_pixels = img->size_x * img->size_y;
+  struct pixel *px_cpy = malloc(num_pixels * sizeof(struct pixel));
+  struct pixel(*new_data)[img->size_x] = (struct pixel(*)[img->size_x])px_cpy;
+
   /* Iterate over all pixels */
   for (long i = 0; i < img->size_y; i++) {
     for (long j = 0; j < img->size_x; j++) {
-      /* TODO: Implement */
-      abort(); // remove line
+      double G_x_red = 0.0;
+      double G_x_green = 0.0;
+      double G_x_blue = 0.0;
+      
+      double G_y_red = 0.0;
+      double G_y_green = 0.0;
+      double G_y_blue = 0.0;
+
+      for (long offset_i = -1; offset_i <= 1; offset_i++) {
+        for (long offset_j = -1; offset_j <= 1; offset_j++) {
+
+          long index_i = i+offset_i >= 0 ? i+offset_i : 0;
+          index_i = index_i < img->size_y ? index_i : img->size_y-1;
+
+          long index_j = j+offset_j >= 0 ? j+offset_j : 0;
+          index_j = index_j < img->size_x ? index_j : img->size_x-1;
+
+          double w_x = weights_x[offset_i+1][offset_j+1];
+          double w_y = weights_y[offset_i+1][offset_j+1];
+
+          struct pixel current_pixel = image_data[index_i][index_j];
+
+          G_x_red += current_pixel.red * w_x;
+          G_x_green += current_pixel.green * w_x;
+          G_x_blue += current_pixel.blue * w_x;
+
+          G_y_red += current_pixel.red * w_y;
+          G_y_green += current_pixel.green * w_y;
+          G_y_blue += current_pixel.blue * w_y;
+        }
+      }
+
+      double G_red = G_x_red*G_x_red + G_y_red*G_y_red;
+      double G_green = G_x_green*G_x_green + G_y_green*G_y_green;
+      double G_blue = G_x_blue*G_x_blue + G_y_blue*G_y_blue;
+
+      double G = sqrt(G_red + G_green + G_blue);
+
+      if(G <= (double)threshold){
+        new_data[i][j].red = 0xFF;
+        new_data[i][j].green = 0xFF;
+        new_data[i][j].blue = 0xFF;
+      } else {
+        new_data[i][j].red = 0x00;
+        new_data[i][j].green = 0x00;
+        new_data[i][j].blue = 0x00;
+      }
+      new_data[i][j].alpha = image_data[i][j].alpha;
     }
   }
+
+  img->px = (struct pixel *)new_data;
 }
 
 /* The filter structure comprises the filter function, its arguments and the
