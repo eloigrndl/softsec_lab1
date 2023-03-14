@@ -230,11 +230,11 @@ void filter_edge_detect(struct image *img, void *threshold_arg) {
         }
       }
 
-      double G_red = G_x_red*G_x_red + G_y_red*G_y_red;
-      double G_green = G_x_green*G_x_green + G_y_green*G_y_green;
-      double G_blue = G_x_blue*G_x_blue + G_y_blue*G_y_blue;
+      double G_red = sqrt(G_x_red*G_x_red + G_y_red*G_y_red);
+      double G_green = sqrt(G_x_green*G_x_green + G_y_green*G_y_green);
+      double G_blue = sqrt(G_x_blue*G_x_blue + G_y_blue*G_y_blue);
 
-      double G = sqrt(G_red + G_green + G_blue);
+      double G = sqrt(G_red*G_red + G_green*G_green + G_blue*G_blue);
 
       if(G <= (double)threshold){
         new_data[i][j].red = 0xFF;
