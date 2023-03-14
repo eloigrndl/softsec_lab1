@@ -53,6 +53,10 @@ void filter_blur(struct image *img, void *r) {
     radius = 0;
   }
 
+  // To avoid timing out an important radius, we can minimize it already.
+  uint16_t greater_size = img->size_x > img->size_y ? img->size_x : img->size_y;
+  radius = radius > greater_size ? greater_size : radius;
+
   struct pixel(*new_data)[img->size_x] =
       malloc(sizeof(struct pixel) * img->size_x * img->size_y);
 
