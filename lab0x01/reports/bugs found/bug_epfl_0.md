@@ -15,7 +15,7 @@ If the program is launched with a wrong number of arguments, the program will pr
 ### Command
 
 ```
-./epfl ./test_imgs/ck.png  epfl.png 100 100 FF0000
+./epfl ./test_imgs/ck.png epfl.png 100 100 FF0000
 ```
 
 ### Proof-of-Concept Input (if needed)

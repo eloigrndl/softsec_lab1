@@ -17,7 +17,7 @@ If `bug_circle_0` is not fixed, the program will fail because of the type error.
 
 ### Command
 ```
-./circle ./test_imgs/ck.png circle.png -3 10 100 FFFFFF
+./circle ./test_imgs/ck.png circle.png -3 10 50 FFFFFF
 ```
 
 ### Proof-of-Concept Input (if needed)
