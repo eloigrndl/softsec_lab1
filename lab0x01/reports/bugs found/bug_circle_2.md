@@ -1,25 +1,26 @@
-# BUG-CIRCLE_2
+# BUG-CIRCLE-2
 ## Category
-Wrong operators/variables
+Unchecked system call returning code
 
 ## Description
-The `x`and `y` indices are not completely computed : the operator `==` is used instead of `=`, resulting into a comparison instead of a variable assignement. Thus, the same operation is made on the data array two times with the same parameters.
+The `store_png` function is called but the return value is not checked.
 
 ## Affected Lines in the original program
-`circle.c:61` and `circle.c:84`
+`circle.c:93`
 
 ## Expected vs Observed
-The circle is not completely drawn: the top-left corner is missing.
+The resulting image should have been stored correctly but this is not the case as the `store_png` function failed. The program should have returned a return code indeicating an error but this is also not the case.
 
 ## Steps to Reproduce
 
+If `bug_circle_0` is not fixed, the program will fail because of the type error.
+
 ### Command
 ```
-./circle test.png circle.png 100 100 20 000000
+./circle ./test_imgs/ck.png /inexistant/folder/test_circle.png 100 100 50 FFFFFFF
 ```
 
 ### Proof-of-Concept Input (if needed)
 
-
 ## Suggested Fix Description
-Replace the `==` operator by `=` on the said lines.
+The return value should be checked and if the function has failed, we should print an error message and return an error code.

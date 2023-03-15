@@ -1,24 +1,25 @@
 # BUG-RECT-2
 ## Category
-Iteration error
+Unchecked system call returning code
 
 ## Description
-When iterating over the input image to draw the rectangle, the program wrongly loops over the image pixels as it increments both `i` and `j` simultaneously. This results in the program iterating diagonally rather than over the entire image.
-
+The `store_png` function is called but the return value is not checked.
 
 ## Affected Lines in the original program
-`rect.c:80-81`
+`rect.c:85`
 
 ## Expected vs Observed
-A rectangle should be drawn on the given image but instead we only see a diagonal of the wanted rectangle.
+The resulting image should have been stored correctly but this is not the case as the `store_png` function failed. The program should have exit with a return code indicating an error but this is also not the case.
 
 ## Steps to Reproduce
+As for `bug_rect_1`, to generate this bug, the argument parsing bug (`bug_rect_0`) should be fixed, otherwise the program will always fail to read the provided arguments.
 
 ### Command
 ```
-./rect test.png test_rec.png 10 10 100 60 000000
+./rect ./test_imgs/ck.png /inexistant/folder/test_rect.png 100 100 200 50 FFFFFFF
 ```
+
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-We should increment `i` outside `j`'s `while` loop and when increasing `i`, `j`should be reset to 0.
+The return value should be checked and if the function has failed, we should print an error message and return an error code.

@@ -1,23 +1,24 @@
 # BUG-FILTER-3
 ## Category
-Iteration error
+String vulnerability
 
 ## Description
-When iterating through the image's pixel to apply the negative filter, the loops access `img->size_y` and `img->size_x` locations in the pixel array, resulting in a heap overflow, as those memory locations are out-of-bound of the allocated image.
+When the program fails to load the input image, it directly prints the input path given by the user, allowing format string attacks to access illegal portions of the memory.
+
 
 ## Affected Lines in the original program
-`filter.c:118-119`
+`filter.c:233`
 
 ## Expected vs Observed
-The program fails when we use the `negative` filter on a given image instead of applying the filter.
+The command below will make the program fail and allow an attacker to read parts of the heap memory.
 
 ## Steps to Reproduce
 
 ### Command
 ```
-./filter ./test_imgs/ck.png filter.png negative
+./filter "Input is accessing data : %s%p%u%d" filter.png negative
 ```
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-In the faulty `for`loops iterating over the image's pixels, replace the `<=` operator by the `<`.
+We should use formatted string to enforce the type : replace the print statement with `print("%s", input)`.

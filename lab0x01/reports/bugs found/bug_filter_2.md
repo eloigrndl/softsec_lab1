@@ -1,23 +1,23 @@
 # BUG-FILTER-2
 ## Category
-Local persisting pointers
+Iteration error
 
 ## Description
-When using the `get_pixel` function, the `pixel` variable is allocated on the stack. Thus, when the function returns, the variable gets deallocated and the returned pointer becomes invalid.
+When iterating through the image's pixel to apply the negative filter, the loops access `img->size_y` and `img->size_x` locations in the pixel array, resulting in a heap overflow, as those memory locations are out-of-bound of the allocated image.
 
 ## Affected Lines in the original program
-`filter.c:108`
+`filter.c:118-119`
 
 ## Expected vs Observed
-When using the negative filter, the program fails with a segmentation fault.
+The program fails when we use the `negative` filter on a given image instead of applying the filter.
 
 ## Steps to Reproduce
 
 ### Command
 ```
-./filter ./test_imgs/summer.png filter.png negative
+./filter ./test_imgs/ck.png filter.png negative
 ```
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-The `pixel` variable should be allocate on the heap : when the function will return, the pointer will still be valid.
+In the faulty `for`loops iterating over the image's pixels, replace the `<=` operator by the `<`.

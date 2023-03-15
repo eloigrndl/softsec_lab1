@@ -1,24 +1,26 @@
 # BUG-CIRCLE-3
 ## Category
-Unchecked system call returning code
+Iteration error
 
 ## Description
-The `store_png` function is called but the return value is not checked.
+When drawing the circle, there is no image bound check : for some particular arguments, the program will try to access either negative indices or indices that are beyond the array's limits, resulting in a heap overflow.
 
 ## Affected Lines in the original program
-`circle.c:93`
+`circle.c:52` and `circle.c:75`
 
 ## Expected vs Observed
-The resulting image should have been stored correctly but this is not the case as the `store_png` function failed. The program should have returned a return code indeicating an error but this is also not the case.
+On every parameter, the program should only draw the part of the circle that is within the image : it should not try to write out of the image's bounds, even if the center has negative coordinates or if the circle goes beyond the edges of the image.
 
 ## Steps to Reproduce
 
+If `bug_circle_0` is not fixed, the program will fail because of the type error.
+
 ### Command
 ```
-./circle test.png /inexistant/folder/test_circle.png 100 100 50 FFFFFFF
+./circle ./test_imgs/ck.png circle.png -3 10 100 FFFFFF
 ```
 
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-The return value should be checked and if the function has failed, we should print an error message and return an error code.
+When drawing the circle, before accessing addresses in the image data array, we should check if the pixel is inside of the image by looking at its coordinates and draw it only if it is the case.

@@ -17,7 +17,9 @@ The program should not leak memory but `palette`is never freed. Result were obta
 
 ### Command
 
-`./solid test.png 400 400 FFFFFF`
+```
+./solid test.png 400 400 FFFFFF
+```
 
 ### Proof-of-Concept Input (if needed)
 

@@ -1,25 +1,28 @@
 # BUG-CHECKERBOARD-1
 ## Category
-Temporal safety violation
+Heap overflow/underflow
 
 ## Description
-In case of a failure, the `img` variable is freed two times.
+For square sizes which are either greater than the image size or which does not divide the image size perfectly (the image size not being a multiple of the square size), the program fails.
 
 ## Affected Lines in the original program
-In `checkerboard.c:91`
+From `checkerboard.c:115` to `checkboard.c:122`
 
 ## Expected vs Observed
-If the program fails to allocate the memory for the pixel array, the `img` variable is freed before executing the `error_img` routine which frees the variable a second time. Result were obtained using `valgrind`.
+If we give such a square sizes (explained above), the `for` loops that fills the image data will access memory address that are out of the bounds of the image data array : there is no bound check for the array indices, thus making the program crash. 
+If we give a square size bigger than the image size, we expect the image to be of only one color and if we give a square size that does not divide perfectly the image size, we expect the squares to be cut on the bottom and right edges of the image (since we fill the image for upper left to lower right corners). This is not the case.
 
 ## Steps to Reproduce
 
-To trigger the double-free bug, one can invert the boolean condition at `checkerboard.c:90` and then run a correct command.
-
 ### Command
 
-`./checkerboard test.png 100 100 50 000000 FFFFFF`
+```
+./checkerboard test.png 100 100 150 000000 FFFFFF
+
+./checkerboard test.png 100 100 30 000000 FFFFFF
+```
 
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-Remove the first `free` operation at line `checkerboard.c:91`.
+Before accessing addresses in the image data array, add a `min` operation on the array indices : if the indices are higher than the image size, upper-bound them.

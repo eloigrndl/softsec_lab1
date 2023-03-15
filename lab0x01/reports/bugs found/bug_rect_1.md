@@ -1,24 +1,25 @@
-# BUG-REC-1
+# BUG-RECT-1
 ## Category
-Wrong operators/variables
+Iteration error
 
 ## Description
-The program crashes for any given input as it does not parse correctly the provided arguments because of an index error.
+When iterating over the input image to draw the rectangle, the program wrongly loops over the image pixels as it increments both `i` and `j` simultaneously. This results in the program iterating diagonally rather than over the entire image.
+
 
 ## Affected Lines in the original program
-`rect.c:34-35`
+`rect.c:80-81`
 
 ## Expected vs Observed
-When parsing the arguments, the program tries to access the `argv[8]` value. Because we only have 8 elements in the `argv` variable, this results in a out-of-bounds error.
+A rectangle should be drawn on the given image but instead we only see a diagonal of the wanted rectangle.
 
 ## Steps to Reproduce
+To generate this bug, the argument parsing bug (`bug_rect_0`) should be fixed, otherwise the program will always fail to read the provided arguments.
 
 ### Command
 ```
-./rect test.png test_rec.png 10 10 100 60 000000
+./rect ./test_imgs/ck.png test_rec.png 10 10 50 50 000000
 ```
-
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-The index should be changed to 7 in the faulty lines.
+We should increment `i` outside `j`'s `while` loop and when increasing `i`, `j`should be reset to 0.

@@ -2,21 +2,23 @@
 ## Category
 Logic error
 ## Description
-In case of wrong arguments, the function does not return with an error code, causing a segmentation fault later on.
+When using a size greater than 1, the logo isn't fully drawn. This is caused by the `if` statement that check if the current image column is a column where the logo should be drawn : there is an error in the boolean condition which only takes into account the `logo_width` instead of the projected size of the logo which is `size * logo_width`.
 
 ## Affected Lines in the original program
-In `epfl.c:14-18`
+In `epfl.c:76`
 
 ## Expected vs Observed
-If the program is launched with a wrong number of arguments, the program will print an error but instead of exiting with an error code, it will continue normally and fail afterwards.
+When using a logo size greater than 1 as argument, the program only draws part of it instead of drawing a complete EPFL logo.
 
 ## Steps to Reproduce
 
 ### Command
 
-`./epfl test.png epfl.png 100 100 FF0000`
+```
+./epfl ./test_imgs/summer.png epfl.png 100 100 10 FF0000
+```
 
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-Add a `return` statement inside the concerned `if` lines.
+In the faulty line, replace the second part of the condition `j < top_left_x + logo_width` by `j < top_left_x + logo_width * size`.

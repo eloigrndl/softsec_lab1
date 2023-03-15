@@ -2,21 +2,23 @@
 ## Category
 Logic error
 ## Description
-When using a size greater than 1, the logo isn't fully drawn. This is caused by the `if` statement that check if the current image column is a column where the logo should be drawn : there is an error in the boolean condition which only takes into account the `logo_width` instead of the projected size of the logo which is `size * logo_width`.
+When the logo is shifted upward (because it would be cut on the bottom otherwise), the program draws the ETHZ logo instead of the EPFL logo. When the program shifts the logo, it also adds adjustements to the logo, transformating it into the ETHZ logo.
 
 ## Affected Lines in the original program
-In `epfl.c:76`
+In `epfl.c:82`
 
 ## Expected vs Observed
-When using a logo size greater than 1 as argument, the program only draws part of it instead of drawing a complete EPFL logo.
+The program draws the ETHZ logo instead of the EPFL logo when it shifts the logo upward.
 
 ## Steps to Reproduce
 
 ### Command
 
-`./epfl test.png epfl.png 100 100 10 FF0000`
+```
+./epfl ./test_imgs/ck_edge.png epfl.png 15 60 1 FF0000
+```
 
 ### Proof-of-Concept Input (if needed)
 
 ## Suggested Fix Description
-In the faulty line, replace the second part of the condition `j < top_left_x + logo_width` by `j < top_left_x + logo_width * size`.
+Delete the faulty line that add the adjustements to the initial logo.

@@ -1,23 +1,27 @@
 # BUG-CIRCLE-1
 ## Category
-Type error
+Wrong operators/variables
 
 ## Description
-When calling the `strtol` method, instead of providing a `char **`, the program provides a `char *` variable.  
+The `x`and `y` indices are not completely computed : the operator `==` is used instead of `=`, resulting into a comparison instead of a variable assignement. Thus, the same operation is made on the data array two times with the same parameters.
 
 ## Affected Lines in the original program
-`circle.c:30`
+`circle.c:61` and `circle.c:84`
 
 ## Expected vs Observed
-The program should draw a circle on the provided image but instead, we get a segmentation fault error.
+The circle is not completely drawn: the top-left corner is missing.
 
 ## Steps to Reproduce
 
+If `bug_circle_0` is not fixed, the program will fail because of the type error.
+
 ### Command
 ```
-./circle test.png test_circle.png 100 100 30 FFFFFFF
+./circle ./test_imgs/ck.png test_circle.png 20 20 10 000000
 ```
+
 ### Proof-of-Concept Input (if needed)
 
+
 ## Suggested Fix Description
-We must add the `&` operation to the `end_ptr` so that we gives the correct type of variable : `char **`.
+Replace the `==` operator by `=` on the said lines.
